@@ -1,14 +1,39 @@
-body{
-background-color: black;
+body {
+    background-color: black;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
-.titlehome{
+
+.main-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titlehome {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.titlehome h1 {
     font-size: 25px;
     color: white;
-    font-family: "Poppins";
+    margin: 0;
 }
-.container {
-    width: 300px;   
-    padding: 20px;
+
+.form-container {
+    width: 100%;
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .input-group {
@@ -17,18 +42,22 @@ background-color: black;
 
 .input-group label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: white;
+    font-size: 16px;
 }
 
 .input-group input[type="email"],
 .input-group input[type="password"] {
-    width: calc(100% - 22px);
-    padding: 10px;
-    border: none;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #333;
     border-radius: 8px;
     font-size: 16px;
-    color: #555;
+    background-color: #333;
+    color: white;
+    box-sizing: border-box;
 }
 
 .input-group input::placeholder {
@@ -37,17 +66,17 @@ background-color: black;
 
 .password-input {
     position: relative;
-    display: flex;
-    align-items: center;
 }
 
 .password-input input[type="password"] {
-    width: calc(100% - 50px);
+    padding-right: 40px;
 }
 
 .toggle-password {
     position: absolute;
     right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
@@ -63,15 +92,43 @@ background-color: black;
 .toggle-password svg {
     width: 20px;
     height: 20px;
-    fill: #888;
+    fill: #aaa;
 }
-.email-label{
-    font-size: 20px;
-    font-family: "Poppins" ;
+
+.login-button {
+    background-color: #4285F4;
     color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin: 20px 0;
+    transition: background-color 0.3s;
+    font-family: 'Poppins', sans-serif;
 }
-.senha-label{
-    font-size: 20px;
-    font-family: "Poppins" ;
+
+.login-button:hover {
+    background-color: #3367D6;
+}
+
+.register-text {
     color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.register-link {
+    color: #4285F4;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.register-link:hover {
+    color: #5a9bff;
 }
