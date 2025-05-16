@@ -1,0 +1,49 @@
+.subtitle {
+    color: #aaa;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: 400;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+    font-size: 22px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+    font-weight: 400;
+}
+
+.login-text {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-link {
+    color: #4285F4;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+.input-group input:not([type="password"]):hover {
+    border-color: #555;
+}
+
+.input-group input:not([type="password"]):focus {
+    border-color: #4285F4;
+    background-color: #444;
+}
