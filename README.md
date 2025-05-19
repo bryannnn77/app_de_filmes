@@ -9,7 +9,7 @@ O Cineyplay é um aplicativo onde usuários podem:
 ✔ Descobrir novidades com base em avaliações da comunidade.  
 ✔ Favoritar títulos para assistir depois.  
 <br><br>
-## **✨ Recursos Principais**  
+## **✨ Recursos Funciona**  
 - 📊 Sistema de avaliação por estrelas/pontuação.  
 - ✍️ Reviews com suporte a spoilers (opcional).  
 - 🔍 Busca avançada por gênero, ano, diretor ou ator.  
