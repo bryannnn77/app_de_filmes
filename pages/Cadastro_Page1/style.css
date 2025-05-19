@@ -1,32 +1,156 @@
-.subtitle {
-    color: #aaa;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 5px;
-    font-weight: 400;
+/* ESTILOS GERAIS */
+body {
+    background-color: #000;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: white;
 }
 
-h2 {
-    color: white;
+/* CONTAINER PRINCIPAL */
+.main-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* CABEÇALHO */
+.titlehome {
     text-align: center;
+    margin-bottom: 30px;
+}
+
+.titlehome h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+}
+
+.titlehome h2 {
     font-size: 22px;
-    margin-top: 10px;
     font-weight: 500;
+    margin: 10px 0 5px 0;
+    color: #fff;
 }
 
-.error-message {
-    color: #ff4444;
-    font-size: 12px;
-    margin-top: 5px;
-    display: none;
+.subtitle {
+    font-size: 16px;
+    color: #aaa;
     font-weight: 400;
+    margin: 0;
 }
 
-.login-text {
+/* FORMULÁRIO */
+.form-container {
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    color: #fff;
+    text-align: left;
+    padding-left: 5px;
+}
+
+.input-group {
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #4285F4;
+    background-color: #444;
+}
+
+/* CAMPO DE SENHA */
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    padding-right: 45px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+    fill: #aaa;
+    transition: fill 0.3s ease;
+}
+
+.toggle-password:hover svg {
+    fill: #fff;
+}
+
+/* BOTÃO */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4285F4;
     color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-button:hover {
+    background-color: #3367D6;
+}
+
+/* DIVISÓRIA */
+.divider {
+    height: 1px;
+    background-color: #333;
+    margin: 25px 0;
+}
+
+/* LINKS E MENSAGENS */
+.login-text {
     text-align: center;
-    margin-top: 20px;
     font-size: 14px;
+    color: #fff;
 }
 
 .login-link {
@@ -39,11 +163,11 @@ h2 {
     text-decoration: underline;
 }
 
-.input-group input:not([type="password"]):hover {
-    border-color: #555;
-}
-
-.input-group input:not([type="password"]):focus {
-    border-color: #4285F4;
-    background-color: #444;
+.error-message {
+    color: #ff4444;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+    text-align: left;
+    padding-left: 5px;
 }

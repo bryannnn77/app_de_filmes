@@ -1,20 +1,48 @@
-// Validação do Formulário de Cadastro
-function setupRegistrationForm() {
-    const registerForm = document.getElementById('registerForm');
+document.addEventListener('DOMContentLoaded', function() {
+    // Configuração do botão de mostrar/ocultar senha
+    const togglePassword = document.querySelector('.toggle-password');
+    const passwordInput = document.getElementById('senha');
     
+    if (togglePassword && passwordInput) {
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Atualizar ícone
+            const icon = togglePassword.querySelector('svg');
+            if (type === 'text') {
+                icon.innerHTML = '<path d="M12 6a9.77 9.77 0 0 1 8.82 5.5 9.77 9.77 0 0 1-8.82 5.5A9.77 9.77 0 0 1 3.18 11.5 9.77 9.77 0 0 1 12 6zm0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5a2.5 2.5 0 0 1 0 5 2.5 2.5 0 0 1 0-5z"/>';
+            } else {
+                icon.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
+            }
+        });
+    }
+
+    // Configuração do link de login
+    const loginLink = document.getElementById('loginLink');
+    if (loginLink) {
+        loginLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = "../index.html";
+        });
+    }
+
+    // Validação do formulário
+    const registerForm = document.getElementById('registerForm');
     if (registerForm) {
         registerForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            document.getElementById('emailError').style.display = 'none';
-            document.getElementById('phoneError').style.display = 'none';
-            document.getElementById('passwordError').style.display = 'none';
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
             
             const email = document.getElementById('email').value;
             const telefone = document.getElementById('telefone').value;
             const senha = document.getElementById('senha').value;
             
             let isValid = true;
+
             if (!email.includes('@') || !email.includes('.')) {
                 document.getElementById('emailError').textContent = 'Por favor, insira um email válido';
                 document.getElementById('emailError').style.display = 'block';
@@ -25,22 +53,22 @@ function setupRegistrationForm() {
                 document.getElementById('phoneError').style.display = 'block';
                 isValid = false;
             }
-            if (senha.length < 8) {
+            
+            if (senha.length < 6) {
                 document.getElementById('passwordError').textContent = 'A senha deve ter pelo menos 6 caracteres';
                 document.getElementById('passwordError').style.display = 'block';
                 isValid = false;
             }
-            
+        
             if (isValid) {
                 alert('Cadastro realizado com sucesso!');
                 setTimeout(() => {
-                    window.location.href = "../index.html";
+                    window.location.href = "C:\Users\aluno\app_de_filmes\index.html"; // Redireciona para login
                 }, 1000);
             }
         });
-        
         document.getElementById('telefone').addEventListener('input', function(e) {
             this.value = this.value.replace(/\D/g, '');
         });
     }
-}
+}); 
