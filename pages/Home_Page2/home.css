@@ -1,0 +1,48 @@
+body {
+    background-color:#34328b;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    line-height: 1.6;
+    position: relative;
+    min-height: 100vh;
+  }
+.navbar {
+   
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  }
+  
+  .nav-list {
+    list-style: none;
+    display: block;
+    unicode-bidi: isolate;
+  
+  }
+  
+  .nav-list li {
+    display: inline;
+    margin-right: 20px;
+    
+  }
+  
+  .nav-list li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .nav-list li a:hover {
+    color: rgb(53, 52, 52)
+      /* Altere esta cor para a cor desejada ao passar o mouse */
+    ;
+    transition: 0.5s all;
+    position: relative;
+    height: 50px;
+ 
+  }
+  
