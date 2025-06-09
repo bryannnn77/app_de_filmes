@@ -8,19 +8,54 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-</head>
-<nav class="navbar">
-    <ul class="nav-list">
-      <li><a href="file:///C:/Users/soare/Downloads/low.html--main/low.html--main/selva/selva.html">comédia</a>
-      </li>
-      <li><a href="">terror</a></li>
-      <li><a href="">ação</a></li>
-      <li><a
-          href="">romance</a>
-      </li>
-    </ul>
-  </nav>
-  <img src="" alt="">
+    
+  </head>
 <body>
-    <h2> </h2>
+  
+
+
+  <nav class="navbar">
+    <ul class="nav-list">
+        <!-- Menu Button (visible on mobile) -->
+        <li>
+            <button class="menu-btn" onclick="openMenu()">&#9776;</button>
+        </li>
+        
+        <!-- Regular menu items -->
+        <li><a href="#">comédia</a></li>
+        <li><a href="#">terror</a></li>
+        <li><a href="#">ação</a></li>
+        <li><a href="#">romance</a></li>
+    </ul>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar" id="menu">
+    <button onclick="closeMenu()" class="close-btn">&times;</button>
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+</div>
+
+<!-- Overlay (para clicar fora do menu) -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- Conteúdo Principal -->
+<div class="content">
+    
+    
+</div>
+
+<script>
+    function openMenu() {
+        document.getElementById("menu").style.left = "0";
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function closeMenu() {
+        document.getElementById("menu").style.left = "-250px";
+        document.getElementById("overlay").style.display = "none";
+    }
+</script>
 </body>
+</html>
