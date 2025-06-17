@@ -22,6 +22,6 @@ O Cineyplay é um aplicativo onde usuários podem:
 4. **Compartilhe** suas listas com amigos!  
 <br><br>
 ## **🛠 Tecnologias Utilizadas**  
-- API de filmes: TMDB API ou IMDb API alternativa  
+- API de filmes: TMDB API.
 
 
