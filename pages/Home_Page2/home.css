@@ -6,6 +6,7 @@ body {
   line-height: 1.6;
   position: relative;
   min-height: 100vh;
+  
 }
 img {
   width: 150px;
@@ -156,6 +157,8 @@ img {
   overflow-x: auto;
   gap: 10px;
   padding: 10px 0;
+  scrollbar-width: none;
+  
 }
 
 .filmes-container img {
