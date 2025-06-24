@@ -9,7 +9,7 @@
         document.getElementById("overlay").style.display = "none";
     }
 
-    const API_KEY = '1cf50e6248dc270629e802686245c2c8';  
+    const API_KEY = '673e3727601cd851fa4802daf03edfeb';  
     const BASE_URL = 'https://api.themoviedb.org/3';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function carregarBanner() {
-    const res = await fetch(`${BASE_URL}/movie/now_playing?api_key=1cf50e6248dc270629e802686245c2c8&language=pt-BR`);
+    const res = await fetch(`${BASE_URL}/movie/now_playing?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR`);
     const data = await res.json();
     const destaque = data.results[Math.floor(Math.random() * data.results.length)];
 
@@ -43,26 +43,26 @@ async function carregarBanner() {
 
 
 async function carregarMaisVistos() {
-  const res = await fetch(`${BASE_URL}/discover/movie?api_key=1cf50e6248dc270629e802686245c2c8&sort_by=revenue.desc&language=pt-BR`);
+  const res = await fetch(`${BASE_URL}/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&sort_by=revenue.desc&language=pt-BR`);
   const data = await res.json();
   preencherFilmes('filmes-mais-vistos', data.results);
 }
 
 async function carregarEstreias() {
-    const res = await fetch(`${BASE_URL}/movie/upcoming?api_key=1cf50e6248dc270629e802686245c2c8&language=pt-BR&vote_count.gte=500`);
+    const res = await fetch(`${BASE_URL}/movie/upcoming?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR&vote_count.gte=500`);
     const data = await res.json();
     preencherFilmes('filmes-estreias', data.results);
 }
 
 
 async function carregarAnimacoes() {
-    const res = await fetch(`${BASE_URL}/discover/movie?api_key=1cf50e6248dc270629e802686245c2c8&with_genres=16&sort_by=vote_average.desc&vote_count.gte=500`);
+    const res = await fetch(`${BASE_URL}/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=16&sort_by=vote_average.desc&vote_count.gte=500`);
     const data = await res.json();
     preencherFilmes('filmes-animacoes', data.results);
 }
 
 async function carregarPorGenero(genreId) {
-    const res = await fetch(`${BASE_URL}/discover/movie?api_key=1cf50e6248dc270629e802686245c2c8&with_genres=${genreId}&sort_by=popularity.desc&vote_count.gte=500`);
+    const res = await fetch(`${BASE_URL}/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=${genreId}&sort_by=popularity.desc&vote_count.gte=500`);
     const data = await res.json();
     preencherFilmes('filmes-mais-vistos', data.results);
 }
