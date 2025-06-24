@@ -1,76 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <title>CinePlay</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="home.css">
-    <script src="home.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    
-  </head>
+  <title>CinePlay</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="home.css">
+  <script src="home.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
 <body>
-  
-
+  <!-- Sidebar e overlay fora da navbar -->
+  <div class="menu-lateral" id="menu">
+    <button class="botao-fechar" onclick="fechaMenu()">×</button>
+  </div>
+  <div class="fundo-sidebar" id="fundo-sidebar" onclick="fechaMenu()"></div>
 
   <nav class="navbar">
-    <ul class="nav-list">
-        <!-- Menu Button (visible on mobile) -->
-        <li>
-            <button class="menu-btn" onclick="openMenu()">&#9776;</button>
-        </li>
-        
-<li><a href="#" data-genre="35">Comédia</a></li>
-<li><a href="#" data-genre="10749">Romance</a></li>
-<li><a href="#" data-genre="27">Terror</a></li>
-<li><a href="#" data-genre="28">Ação</a></li>
-<li><a href="#" data-genre="18">Drama</a></li>
-<li><a href="#" data-genre="878">Sci-Fi</a></li>
-
+    <button class="botao-menu" onclick="abreMenu()">☰</button>
+    <ul class="menu-lista">
+      <li><a href="#" data-genre="35">Comédia</a></li>
+      <li><a href="#" data-genre="10749">Romance</a></li>
+      <li><a href="#" data-genre="27">Terror</a></li>
+      <li><a href="#" data-genre="28">Ação</a></li>
+      <li><a href="#" data-genre="18">Drama</a></li>
+      <li><a href="#" data-genre="878">Sci-Fi</a></li>
     </ul>
-</nav>
-
-<!-- Sidebar -->
-<div class="sidebar" id="menu">
-    <button onclick="closeMenu()" class="close-btn">&times;</button>
-    <a href="">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-</div>
-
-<!-- Overlay (para clicar fora do menu) -->
-<div class="overlay" id="overlay" onclick="closeMenu()"></div>
-
-<!-- Conteúdo Principal -->
-<div class="content">
-    
- 
-<section id="banner" class="highlight-banner">
-  <div class="banner-info">
-    <h1 id="banner-title"></h1>
+    <div class="busca-caixa">
+      <input type="text" id="campo-busca" placeholder="Buscar filme" />
+      <button onclick="procuraFilme()">🔍</button>
+    </div>
+  </nav>
+  <div class="conteudo">
+    <section id="faixa" class="banner">
+      <div class="info-faixa">
+        <h1 id="titulo-faixa"></h1>
+      </div>
+    </section>
+    <section>
+      <h2>Mais Vistos</h2>
+      <div class="caixa-filmes" id="filmes-famosos"></div>
+    </section>
+    <section>
+      <h2>Estreias da Semana</h2>
+      <div class="caixa-filmes" id="filmes-novidade"></div>
+    </section>
+    <section>
+      <h2>Animações Favoritas</h2>
+      <div class="caixa-filmes" id="filmes-desenho"></div>
+    </section>
   </div>
-</section>
-
-
-<section>
-  <h2>Mais Vistos</h2>
-  <div class="filmes-container" id="filmes-mais-vistos"></div>
-</section>
-
-
-<section>
-  <h2>Estreias da Semana</h2>
-  <div class="filmes-container" id="filmes-estreias"></div>
-</section>
-
-<section>
-  <h2>Animações Favoritas</h2>
-  <div class="filmes-container" id="filmes-animacoes"></div>
-</section>
-
-    
-</div>
-
 </body>
 </html>

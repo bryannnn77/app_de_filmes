@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>CinePlay</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="home.css">
+    <script src="pesquisar.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <button class="botao-voltar" onclick="window.location.href='home.html'"> Voltar</button>
+        <div class="busca-caixa">
+            <input type="text" id="campo-busca" placeholder="Buscar filme" />
+            <button>🔍</button>
+        </div>
+    </nav>
+    <div class="fundo-sidebar" id="fundo-sidebar" onclick="fechaMenu()"></div>
+    <div class="conteudo">
+        <section>
+            <h2>Resultado da Busca</h2>
+            <div id="lista-resultados" class="lista-resultados"></div>
+        </section>
+    </div>
+</body>
+</html>

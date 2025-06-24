@@ -1,172 +1,175 @@
 body {
-  background-color:#082032;
+  background: #082032;
+  color: #fff;
+  font-family: 'Poppins', Arial, sans-serif;
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #ffffff;
-  line-height: 1.6;
-  position: relative;
   min-height: 100vh;
-  
 }
 img {
   width: 150px;
 }
 
 .navbar {
- 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
- 
-
+  background: #1d1d1d;
 }
 
-.nav-list {
+.menu-lista {
   list-style: none;
-  display: block;
-  unicode-bidi: isolate;
-  
+  display: flex;
+  gap: 20px;
 }
 
-.nav-list li {
+.menu-lista li {
   display: inline;
-  margin-right: 20px;
-  font-style:oblique;
-  }
-
-.nav-list li a {
-  text-decoration:none;
-  color: white;
- 
 }
 
-.nav-list li a:hover {
+.menu-lista a {
+  color: #fff;
   text-decoration: none;
-  filter: invert(100%);  /* Inverte todas as cores do elemento */
-  transition: 0.5s all;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+.menu-lista a:hover {
+  background: #222;
+}
+
+.busca-caixa {
+  display: flex;
+  gap: 10px;
+}
+
+.busca-caixa input,
+.busca-caixa button {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+}
+
+.busca-caixa button {
+  background: #22abe6;
+  color: #fff;
+  cursor: pointer;
+}
+
+.busca-caixa button:hover {
+  background-color: #72c5e8;
+}
+
+.lista-resultados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 32px auto 0 auto;
+  justify-items: center;
+}
+
+.filme-caixa {
+  background: #222;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  width: 180px;
+}
+
+.filme-caixa img {
+  width: 160px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  transition: margin-left 0.3s;
+}
+
+.menu-lateral {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: -250px;
   background-color: #1d1d1d;
-  border-radius: 5px ;
+  overflow-x: hidden;
+  transition: 0.3s;
+  z-index: 1000;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 
-
-
-
-  
-      /* Reset básico */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-    
-    body {
-      transition: margin-left 0.3s;
-    }
-    
-    /* Estilo da Sidebar */
-    .sidebar {
-      height: 100%;
-      width: 250px;
-      position: fixed;
-      top: 0;
-      left: -250px;
-      background-color: #f1f1f1;
-      overflow-x: hidden;
-      transition: 0.3s;
-      z-index: 1000;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    }
-    
-    .sidebar.active {
-      left: 0;
-    }
-    
-    .sidebar a, .sidebar button {
-      display: block;
-      padding: 12px 16px;
-      text-decoration: none;
-      color: #333;
-      border: none;
-      background: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    
-    .sidebar a:hover, .sidebar button:hover {
-      background-color: #ddd;
-    }
-    
-    .close-btn {
-      font-size: 22px;
-      padding: 10px 16px;
-     
-    }
-    
-    /* Estilo do conteúdo principal */
-    .header {
-      color: white;
-      padding: 15px;
-      position: relative;
-    }
-    
-    .menu-btn {
-      font-size: 24px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: white;
-      padding: 5px 10px;
-    }
-    
-    .content {
-      padding: 20px;
-    }
-    
-    /* Efeito de overlay quando o menu está aberto */
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
-    }
-    
-    .overlay.active {
-      display: block;
-    }
-
-    .highlight-banner {
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+.menu-lateral.ativado {
+  left: 0;
 }
 
-.filmes-container {
+.menu-lateral a, .menu-lateral button {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #fff;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.menu-lateral a:hover, .menu-lateral button:hover {
+  background-color: #222;
+}
+
+.botao-fechar {
+  font-size: 22px;
+  padding: 10px 16px;
+}
+
+.botao-voltar {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 20px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+.botao-voltar:hover {
+  background: #222;
+}
+
+.caixa-filmes {
   display: flex;
   overflow-x: auto;
   gap: 10px;
   padding: 10px 0;
   scrollbar-width: none;
-  
 }
 
-.filmes-container img {
+.caixa-filmes img {
   width: 120px;
   border-radius: 8px;
 }
 
-#banner {
+#faixa {
   width: 100%;
   height: 400px; 
   background-size: cover;
@@ -179,19 +182,47 @@ img {
   color: white;
 }
 
-.banner-info {
+.info-faixa {
   background: rgba(0, 0, 0, 0.6);
   padding: 10px 20px;
   border-radius: 8px;
   max-width: 600px;
 }
-#banner-title {
+#titulo-faixa {
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
 }
-#banner-overview {
-  font-size: 1rem;
-  margin-top: 5px;
-  color: #ccc;
+
+.banner {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+}
+
+.botao-menu {
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+}
+
+.conteudo {
+  padding: 20px;
+}
+
+.fundo-sidebar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
 }
