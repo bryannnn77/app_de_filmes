@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Sidebar e overlay fora da navbar -->
   <div class="menu-lateral" id="menu">
     <button class="botao-fechar" onclick="fechaMenu()">×</button>
   </div>
@@ -17,12 +16,12 @@
   <nav class="navbar">
     <button class="botao-menu" onclick="abreMenu()">☰</button>
     <ul class="menu-lista">
-      <li><a href="#" data-genre="35">Comédia</a></li>
-      <li><a href="#" data-genre="10749">Romance</a></li>
-      <li><a href="#" data-genre="27">Terror</a></li>
-      <li><a href="#" data-genre="28">Ação</a></li>
-      <li><a href="#" data-genre="18">Drama</a></li>
-      <li><a href="#" data-genre="878">Sci-Fi</a></li>
+  <li><a href="#" data-genre="35" data-genre-serie="35">Comédia</a></li>
+  <li><a href="#" data-genre="99" data-genre-serie="99">Documentário</a></li>
+  <li><a href="#" data-genre="27" data-genre-serie="9648">Terror</a></li>
+  <li><a href="#" data-genre="28" data-genre-serie="10759">Ação</a></li>
+  <li><a href="#" data-genre="18" data-genre-serie="18">Drama</a></li>
+  <li><a href="#" data-genre="878" data-genre-serie="10765">Sci-Fi</a></li>
     </ul>
     <div class="busca-caixa">
       <input type="text" id="campo-busca" placeholder="Buscar filme" />
@@ -35,18 +34,37 @@
         <h1 id="titulo-faixa"></h1>
       </div>
     </section>
-    <section>
-      <h2>Mais Vistos</h2>
-      <div class="caixa-filmes" id="filmes-famosos"></div>
-    </section>
-    <section>
-      <h2>Estreias da Semana</h2>
-      <div class="caixa-filmes" id="filmes-novidade"></div>
-    </section>
-    <section>
-      <h2>Animações Favoritas</h2>
-      <div class="caixa-filmes" id="filmes-desenho"></div>
-    </section>
+<section id="secao-filmes-famosos">
+  <h2>Mais Vistos</h2>
+  <div class="caixa-filmes" id="filmes-famosos"></div>
+</section>
+
+<section id="secao-filmes-novidade">
+  <h2>Estreias da Semana</h2>
+  <div class="caixa-filmes" id="filmes-novidade"></div>
+</section>
+
+<section id="secao-filmes-desenho">
+  <h2>Animações Favoritas</h2>
+  <div class="caixa-filmes" id="filmes-desenho"></div>
+</section>
+ 
+
+<section id="secao-series-famosas">
+  <h2>Séries Mais Vistas</h2>
+  <div class="caixa-filmes" id="series-famosas"></div>
+</section>
+
+<section id="secao-series-novidade">
+  <h2>Séries Estreantes</h2>
+  <div class="caixa-filmes" id="series-novidade"></div>
+</section>
+
+<section id="secao-series-desenho">
+  <h2>Animações em Série</h2>
+  <div class="caixa-filmes" id="series-desenho"></div>
+</section>
+
   </div>
 </body>
 </html>

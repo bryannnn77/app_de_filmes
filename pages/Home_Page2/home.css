@@ -165,9 +165,14 @@ body {
 }
 
 .caixa-filmes img {
-  width: 120px;
+  width: 140px;
+  height: 210px;
+  object-fit: cover;
   border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
 }
+
 
 #faixa {
   width: 100%;
@@ -180,7 +185,9 @@ body {
   align-items: flex-end;
   padding: 20px;
   color: white;
+
 }
+
 
 .info-faixa {
   background: rgba(0, 0, 0, 0.6);

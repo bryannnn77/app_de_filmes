@@ -13,12 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     carregaNovidade();
     carregaFamosos();
     carregaDesenho();
+    carregaSeriesFamosas();
+    carregaSeriesNovidade();
+    carregaSeriesDesenho();
 
-    document.querySelectorAll('[data-genre]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const genreId = link.getAttribute('data-genre');
-            carregaPorGenero(genreId);
+document.querySelectorAll('[data-genre]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const genreFilme = link.getAttribute('data-genre');
+        const genreSerie = link.getAttribute('data-genre-serie');
+        carregaPorGenero(genreFilme, genreSerie);
         });
     });
 });
@@ -53,22 +57,67 @@ async function carregaDesenho() {
     preencheFilmes('filmes-desenho', data.results);
 }
 
-async function carregaPorGenero(genreId) {
-    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=${genreId}&sort_by=popularity.desc&vote_count.gte=500`);
+async function carregaSeriesFamosas() {
+    const res = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=673e3727601cd851fa4802daf03edfeb&sort_by=vote_average.desc&vote_count.gte=500`);
     const data = await res.json();
-    preencheFilmes('filmes-famosos', data.results);
+    preencheFilmes('series-famosas', data.results, true);
 }
 
-function preencheFilmes(containerId, filmes) {
+async function carregaSeriesNovidade() {
+    const res = await fetch(`https://api.themoviedb.org/3/tv/on_the_air?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR`);
+    const data = await res.json();
+    preencheFilmes('series-novidade', data.results, true);
+}
+
+async function carregaSeriesDesenho() {
+    const res = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=16&sort_by=vote_average.desc&vote_count.gte=100&language=pt-BR`);
+    const data = await res.json();
+    preencheFilmes('series-desenho', data.results, true);
+}
+
+
+async function carregaPorGenero(genreFilme, genreSerie) {
+
+    document.getElementById('secao-filmes-novidade').style.display = 'none';
+    document.getElementById('secao-filmes-desenho').style.display = 'none';
+    document.getElementById('secao-series-novidade').style.display = 'none';
+    document.getElementById('secao-series-desenho').style.display = 'none';
+    document.getElementById('secao-filmes-famosos').style.display = 'block';
+    document.getElementById('secao-series-famosas').style.display = 'block';
+
+    const resFilmes = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=${genreFilme}&sort_by=popularity.desc&vote_count.gte=500`);
+    const dataFilmes = await resFilmes.json();
+    preencheFilmes('filmes-famosos', dataFilmes.results);
+
+    const resSeries = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=${genreSerie}&sort_by=popularity.desc&vote_count.gte=500`);
+    const dataSeries = await resSeries.json();
+    preencheSeries('series-famosas', dataSeries.results);
+}
+
+
+
+function preencheFilmes(containerId, itens, isSerie = false) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
-    filmes.forEach(filme => {
+    itens.forEach(item => {
         const img = document.createElement('img');
-        img.src = `https://image.tmdb.org/t/p/w200${filme.poster_path}`;
-        img.alt = filme.title;
+        img.src = `https://image.tmdb.org/t/p/w200${item.poster_path}`;
+        img.alt = isSerie ? item.name : item.title;
         container.appendChild(img);
     });
 }
+
+function preencheSeries(containerId, series) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    series.forEach(serie => {
+        const img = document.createElement('img');
+        img.src = `https://image.tmdb.org/t/p/w200${serie.poster_path}`;
+        img.alt = serie.name;
+        container.appendChild(img);
+    });
+}
+
 
 function procuraFilme() {
     const termo = document.getElementById('campo-busca').value;
