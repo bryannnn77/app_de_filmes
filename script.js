@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loginButton.addEventListener('click', function() {
             alert("Sucesso!");
             setTimeout(() => {
-                window.location.href = "Pages/Home_Page2/home.html";
+                window.location.href = "Pages/2Gabriel/home.html";
             }, 1000);
         });
     }
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (registerLink) {
         registerLink.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = "Pages/Cadastro_Page1/cadastro.html";
+            window.location.href = "Pages/1Bryan/cadastro.html";
         });
     }
 });

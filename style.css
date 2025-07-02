@@ -15,6 +15,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Adicionado para melhor centralização */
+    margin: auto; /* Centraliza horizontalmente */
+    position: relative;
+    top: -5%; /* Ajuste fino para subir um pouco o container */
 }
 
 .titlehome {
@@ -23,9 +27,10 @@ body {
 }
 
 .titlehome h1 {
-    font-size: 25px;
+    font-size: 24px;
     color: white;
     margin: 0;
+    font-weight: 600; /* Tornando o título um pouco mais destacado */
 }
 
 .form-container {
@@ -34,10 +39,11 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 0; /* Removendo margem superior extra */
 }
 
 .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .input-group label {
@@ -64,7 +70,6 @@ body {
     color: #aaa;
 }
 
-/* ESTILOS PARA O CAMPO DE SENHA */
 .password-input {
     position: relative;
     width: 100%;
@@ -72,7 +77,7 @@ body {
 
 .password-input input {
     width: 100%;
-    padding: 12px 40px 12px 12px; /* Espaço para o ícone */
+    padding: 12px 40px 12px 12px;
     border: 1px solid #333;
     border-radius: 8px;
     font-size: 16px;
@@ -150,4 +155,76 @@ body {
 
 .register-link:hover {
     color: #5a9bff;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .main-container {
+        top: -3%; /* Ajuste menor para telas médias */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+        align-items: center; /* Mantém centralizado mesmo em mobile */
+    }
+
+    .main-container {
+        padding: 0;
+        max-width: 100%;
+        top: 0; /* Remove o ajuste de posição em mobile */
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    .titlehome h1 {
+        font-size: 22px;
+    }
+
+    .input-group input[type="email"],
+    .input-group input[type="password"],
+    .password-input input {
+        padding: 10px 36px 10px 12px;
+        font-size: 14px;
+    }
+
+    .login-button {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .register-text {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    .input-group label {
+        font-size: 14px;
+    }
+
+    .input-group input[type="email"],
+    .input-group input[type="password"],
+    .password-input input {
+        padding: 8px 32px 8px 10px;
+        font-size: 13px;
+    }
+    
+    .toggle-password {
+        right: 8px;
+        width: 20px;
+        height: 20px;
+    }
+    
+    .toggle-password svg {
+        width: 18px;
+        height: 18px;
+    }
 }

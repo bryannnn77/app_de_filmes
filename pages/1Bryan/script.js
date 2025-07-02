@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
             if (isValid) {
                 alert('Cadastro realizado com sucesso!');
-                window.location.href = "/pages/Home_Page2/home.html";
+                window.location.href = "../2Gabriel/home.html";
             }
         });
         
