@@ -1,24 +1,19 @@
 body {
-    background-color: black;
+    background-color: #000;
     font-family: 'Poppins', sans-serif;
     margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    color: white;
 }
 
 .main-container {
     width: 100%;
     max-width: 400px;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Adicionado para melhor centralização */
-    margin: auto; /* Centraliza horizontalmente */
-    position: relative;
-    top: -5%; /* Ajuste fino para subir um pouco o container */
 }
 
 .titlehome {
@@ -27,23 +22,41 @@ body {
 }
 
 .titlehome h1 {
-    font-size: 24px;
-    color: white;
+    font-size: 28px;
+    font-weight: 600;
     margin: 0;
-    font-weight: 600; /* Tornando o título um pouco mais destacado */
+    color: #fff;
+}
+
+.titlehome h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 10px 0 5px 0;
+    color: #fff;
 }
 
 .form-container {
-    width: 100%;
     background-color: #1a1a1a;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 0; /* Removendo margem superior extra */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    color: #fff;
+    text-align: left;
+    padding-left: 5px;
 }
 
 .input-group {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .input-group label {
@@ -57,27 +70,7 @@ body {
 .input-group input[type="email"],
 .input-group input[type="password"] {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #333;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #333;
-    color: white;
-    box-sizing: border-box;
-}
-
-.input-group input::placeholder {
-    color: #aaa;
-}
-
-.password-input {
-    position: relative;
-    width: 100%;
-}
-
-.password-input input {
-    width: 100%;
-    padding: 12px 40px 12px 12px;
+    padding: 12px 15px;
     border: 1px solid #333;
     border-radius: 8px;
     font-size: 16px;
@@ -87,9 +80,18 @@ body {
     transition: all 0.3s ease;
 }
 
-.password-input input:focus {
+.input-group input:focus {
     outline: none;
     border-color: #4285F4;
+    background-color: #444;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    padding-right: 45px;
 }
 
 .toggle-password {
@@ -101,11 +103,6 @@ body {
     border: none;
     cursor: pointer;
     padding: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .toggle-password svg {
@@ -120,17 +117,17 @@ body {
 }
 
 .login-button {
+    width: 100%;
+    padding: 12px;
     background-color: #4285F4;
     color: white;
     border: none;
-    padding: 12px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 500;
-    border-radius: 8px;
     cursor: pointer;
-    width: 100%;
-    margin: 20px 0;
     transition: background-color 0.3s;
+    margin-top: 10px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -139,41 +136,32 @@ body {
 }
 
 .register-text {
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
     text-align: center;
-    margin-top: 15px;
+    font-size: 14px;
+    color: #fff;
+    margin-top: 20px;
 }
 
 .register-link {
     color: #4285F4;
-    text-decoration: underline;
-    cursor: pointer;
+    text-decoration: none;
     font-weight: 500;
 }
 
 .register-link:hover {
-    color: #5a9bff;
+    text-decoration: underline;
 }
 
 /* Media Queries para Responsividade */
 @media (max-width: 768px) {
     .main-container {
-        top: -3%; /* Ajuste menor para telas médias */
+        padding: 15px;
     }
 }
 
 @media (max-width: 480px) {
     body {
-        padding: 15px;
-        align-items: center; /* Mantém centralizado mesmo em mobile */
-    }
-
-    .main-container {
-        padding: 0;
-        max-width: 100%;
-        top: 0; /* Remove o ajuste de posição em mobile */
+        padding: 10px;
     }
 
     .form-container {
@@ -181,23 +169,13 @@ body {
     }
 
     .titlehome h1 {
-        font-size: 22px;
+        font-size: 24px;
     }
 
     .input-group input[type="email"],
     .input-group input[type="password"],
     .password-input input {
-        padding: 10px 36px 10px 12px;
-        font-size: 14px;
-    }
-
-    .login-button {
-        padding: 10px;
-        font-size: 15px;
-    }
-
-    .register-text {
-        font-size: 13px;
+        padding: 10px 40px 10px 12px;
     }
 }
 
@@ -213,14 +191,12 @@ body {
     .input-group input[type="email"],
     .input-group input[type="password"],
     .password-input input {
-        padding: 8px 32px 8px 10px;
-        font-size: 13px;
+        padding: 8px 36px 8px 10px;
+        font-size: 14px;
     }
     
     .toggle-password {
         right: 8px;
-        width: 20px;
-        height: 20px;
     }
     
     .toggle-password svg {
