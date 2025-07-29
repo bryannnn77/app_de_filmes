@@ -1,104 +1,151 @@
-.chat-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    background-color: #000000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 1000;
-}
-
-.chat-container {
-    display: none;
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 350px;
-    height: 500px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    flex-direction: column;
-    z-index: 1000;
-}
-
-.chat-container.active {
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #082032;
+    margin: 0;
+    padding: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.support-container {
+    width: 90%;
+    max-width: 800px;
+    height: 80vh;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .chat-header {
-    padding: 15px;
-    background-color: #000000;
+    background-color: #082032;
     color: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 20px;
+    text-align: center;
 }
 
-.close-chat {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
+.chat-header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.chat-header p {
+    margin: 5px 0 0;
+    opacity: 0.8;
+    font-size: 14px;
 }
 
 .chat-messages {
     flex: 1;
-    padding: 15px;
+    padding: 20px;
     overflow-y: auto;
-}
-
-.chat-input {
     display: flex;
-    padding: 10px;
-    border-top: 1px solid #ddd;
-}
-
-.chat-input input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-.chat-input button {
-    padding: 10px 15px;
-    background-color: #000000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .message {
-    margin-bottom: 10px;
-    padding: 8px 12px;
-    border-radius: 5px;
-    max-width: 80%;
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    line-height: 1.4;
+    word-wrap: break-word;
 }
 
 .user-message {
-    background-color: #e3f2fd;
-    margin-left: auto;
+    background-color: #082032;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
 }
 
 .bot-message {
     background-color: #f1f1f1;
-    margin-right: auto;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
 }
 
-body {
-    background: #082032;
-    margin: 0;
-    min-height: 100vh;
-  }
-  img {
-    width: 150px;
-  }
+.chat-input-area {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    background-color: #f9f9f9;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.chat-input-area input:focus {
+    border-color: #082032;
+}
+
+.chat-input-area button {
+    margin-left: 10px;
+    padding: 12px 25px;
+    background-color: #082032;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.chat-input-area button:hover {
+    background-color: #0a2a42;
+}
+
+/* Estilo para a barra de rolagem */
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: #082032;
+    border-radius: 4px;
+}
+
+/* Efeito de digitação */
+.typing-indicator {
+    display: inline-block;
+    padding-left: 15px;
+}
+
+.typing-indicator span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #888;
+    border-radius: 50%;
+    margin-right: 3px;
+    animation: typing 1s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
