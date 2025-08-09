@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="home.css">
     <script src="pesquisar.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
-        <button class="botao-voltar" onclick="window.location.href='home.html'"> Voltar</button>
+        <button class="botao-voltar" onclick="window.location.href='home.html'">Voltar</button>
         <div class="busca-caixa">
             <input type="text" id="campo-busca" placeholder="Buscar filme" />
             <button>🔍</button>
@@ -20,6 +21,17 @@
             <h2>Resultado da Busca</h2>
             <div id="lista-resultados" class="lista-resultados"></div>
         </section>
+        <div class="modal" id="modal-detalhes">
+            <div class="modal-conteudo">
+                <button class="botao-fechar-modal" onclick="fechaModal()">×</button>
+                <h2 id="modal-titulo"></h2>
+                <p id="modal-descricao"></p>
+                <div id="modal-trailer"></div>
+                <div id="modal-indicadores" class="modal-indicadores"></div>
+                <button id="botao-favorito" onclick="toggleFavorito()">Adicionar aos Favoritos</button>
+                <button onclick="fechaModal()">Voltar</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

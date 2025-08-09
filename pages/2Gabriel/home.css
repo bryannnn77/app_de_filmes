@@ -173,10 +173,9 @@ body {
   flex-shrink: 0;
 }
 
-
 #faixa {
   width: 100%;
-  height: 400px; 
+  height: 400px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -185,9 +184,8 @@ body {
   align-items: flex-end;
   padding: 20px;
   color: white;
-
+  cursor: pointer;
 }
-
 
 .info-faixa {
   background: rgba(0, 0, 0, 0.6);
@@ -195,6 +193,7 @@ body {
   border-radius: 8px;
   max-width: 600px;
 }
+
 #titulo-faixa {
   font-size: 2rem;
   font-weight: bold;
@@ -232,4 +231,108 @@ body {
   height: 100%;
   background: rgba(0,0,0,0.5);
   z-index: 999;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-conteudo {
+    background: #1d1d1d;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    color: #fff;
+}
+
+.botao-fechar-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-conteudo h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #22abe6;
+}
+
+.modal-conteudo p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.modal-conteudo button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background: #22abe6;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+.modal-conteudo button:hover {
+    background: #72c5e8;
+}
+
+#modal-trailer {
+    margin: 20px 0;
+}
+
+#modal-trailer iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    border-radius: 8px;
+}
+
+.modal-indicadores {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+    font-size: 1rem;
+}
+
+.modal-indicadores p {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-lista .separador {
+  color: #555;
+  margin: 0 10px;
+  pointer-events: none;
+}
+
+.menu-lista .voltar-inicio {
+  font-weight: bold;
+  color: #22abe6;
+}
+
+.menu-lista .voltar-inicio:hover {
+  color: #72c5e8;
+  background: transparent;
 }
