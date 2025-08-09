@@ -76,7 +76,7 @@ function toggleFavorito() {
         favoritos.splice(index, 1);
         botaoFavorito.textContent = 'Adicionar aos Favoritos';
         botaoFavorito.classList.remove('favoritado');
-        carregaFavoritos(); // Atualiza a lista após remover
+        carregaFavoritos();
     }
 
     localStorage.setItem('favoritos', JSON.stringify(favoritos));
