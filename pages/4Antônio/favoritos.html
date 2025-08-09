@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>CinePlay - Favoritos</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../2Gabriel/home.css">
+    <script src="favoritos.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <button class="botao-voltar" onclick="window.location.href='../2Gabriel/home.html'" aria-label="Voltar para a página inicial">Voltar</button>
+        <div class="busca-caixa">
+            <input type="text" id="campo-busca" placeholder="Buscar filme" aria-label="Campo de busca por filmes ou séries" />
+            <button onclick="procuraFilme()" aria-label="Buscar">🔍</button>
+        </div>
+    </nav>
+    <div class="fundo-sidebar" id="fundo-sidebar" onclick="fechaMenu()"></div>
+    <div class="conteudo">
+        <section>
+            <h2>Meus Favoritos</h2>
+            <div id="lista-favoritos" class="lista-resultados"></div>
+        </section>
+        <div class="modal" id="modal-detalhes" aria-hidden="true">
+            <div class="modal-conteudo">
+                <button class="botao-fechar-modal" onclick="fechaModal()" aria-label="Fechar modal">×</button>
+                <h2 id="modal-titulo"></h2>
+                <p id="modal-descricao"></p>
+                <div id="modal-trailer"></div>
+                <div id="modal-indicadores" class="modal-indicadores"></div>
+                <button id="botao-favorito" onclick="toggleFavorito()">Remover dos Favoritos</button>
+                <button onclick="fechaModal()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
