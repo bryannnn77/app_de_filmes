@@ -10,6 +10,7 @@
 <body>
   <div class="menu-lateral" id="menu">
     <button class="botao-fechar" onclick="fechaMenu()">×</button>
+    <a href="../4Antônio/favoritos.html" class="menu-item">⭐ Favoritos</a>
   </div>
   <div class="fundo-sidebar" id="fundo-sidebar" onclick="fechaMenu()"></div>
 
@@ -60,16 +61,17 @@
       <h2>Animações em Série</h2>
       <div class="caixa-filmes" id="series-desenho"></div>
     </section>
-    <div class="modal" id="modal-detalhes">
-      <div class="modal-conteudo">
-        <button class="botao-fechar-modal" onclick="fechaModal()">×</button>
+<div class="modal" id="modal-detalhes">
+    <div class="modal-conteudo">
+        <button class="botao-fechar-modal" onclick="fechaModal()" aria-label="Fechar modal">×</button>
         <h2 id="modal-titulo"></h2>
         <p id="modal-descricao"></p>
         <div id="modal-trailer"></div>
         <div id="modal-indicadores" class="modal-indicadores"></div>
+        <button id="botao-favorito" onclick="toggleFavorito()">Adicionar aos Favoritos</button>
         <button onclick="fechaModal()">Voltar</button>
-      </div>
     </div>
+</div>
   </div>
 </body>
 </html>

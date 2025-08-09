@@ -14,20 +14,31 @@ function abreModal(item, isSerie = false) {
     const descricao = document.getElementById('modal-descricao');
     const trailerContainer = document.getElementById('modal-trailer');
     const indicadoresContainer = document.getElementById('modal-indicadores');
+    const botaoFavorito = document.getElementById('botao-favorito');
 
+    const tipo = isSerie ? 'Série' : 'Filme';
     titulo.textContent = isSerie ? item.name : item.title;
     descricao.textContent = item.overview || 'Sem descrição disponível';
-    
+
+    // Configurar botão de favorito
+    const favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
+    const isFavorito = favoritos.some(fav => fav.id == item.id && fav.tipo === tipo);
+    botaoFavorito.textContent = isFavorito ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos';
+    botaoFavorito.dataset.id = item.id;
+    botaoFavorito.dataset.tipo = tipo;
+    botaoFavorito.classList.toggle('favoritado', isFavorito);
+
+    trailerContainer.innerHTML = '<div class="loading">Carregando trailer...</div>';
+    indicadoresContainer.innerHTML = '<div class="loading">Carregando informações...</div>';
+
     async function carregaTrailer() {
         try {
             const res = await fetch(`https://api.themoviedb.org/3/${isSerie ? 'tv' : 'movie'}/${item.id}/videos?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR`);
             const data = await res.json();
             const trailer = data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-            if (trailer) {
-                trailerContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>`;
-            } else {
-                trailerContainer.innerHTML = '<p>Trailer não disponível.</p>';
-            }
+            trailerContainer.innerHTML = trailer
+                ? `<iframe src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>`
+                : '<p>Trailer não disponível.</p>';
         } catch (error) {
             trailerContainer.innerHTML = '<p>Erro ao carregar trailer.</p>';
         }
@@ -37,24 +48,16 @@ function abreModal(item, isSerie = false) {
         try {
             const res = await fetch(`https://api.themoviedb.org/3/${isSerie ? 'tv' : 'movie'}/${item.id}?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR`);
             const data = await res.json();
-            
             indicadoresContainer.innerHTML = '';
-            
-            // Adiciona avaliação
             const avaliacao = document.createElement('p');
-            avaliacao.textContent = `⭐ ${data.vote_average.toFixed(1)}/10`;
+            avaliacao.textContent = `⭐ ${data.vote_average?.toFixed(1) || 'N/A'}/10`;
             indicadoresContainer.appendChild(avaliacao);
-            
-            // Adiciona data de lançamento
             const dataLancamento = document.createElement('p');
-            dataLancamento.textContent = `📅 ${isSerie ? data.first_air_date : data.release_date}`;
+            dataLancamento.textContent = `📅 ${isSerie ? data.first_air_date : data.release_date || 'N/A'}`;
             indicadoresContainer.appendChild(dataLancamento);
-            
-            // Adiciona gêneros
             const generos = document.createElement('p');
-            generos.textContent = `🎭 ${data.genres.map(g => g.name).join(', ')}`;
+            generos.textContent = `🎭 ${data.genres?.map(g => g.name).join(', ') || 'N/A'}`;
             indicadoresContainer.appendChild(generos);
-            
         } catch (error) {
             indicadoresContainer.innerHTML = '<p>Erro ao carregar informações adicionais.</p>';
         }
@@ -62,24 +65,42 @@ function abreModal(item, isSerie = false) {
 
     carregaTrailer();
     carregaIndicadores();
-
     modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
 }
 
 function fechaModal() {
-    document.getElementById('modal-detalhes').style.display = 'none';
+    const modal = document.getElementById('modal-detalhes');
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+}
+
+function toggleFavorito() {
+    const botaoFavorito = document.getElementById('botao-favorito');
+    const id = botaoFavorito.dataset.id;
+    const tipo = botaoFavorito.dataset.tipo;
+    const titulo = document.getElementById('modal-titulo').textContent;
+    const poster = document.querySelector(`img[alt="${titulo}"]`)?.src || 'https://via.placeholder.com/200x300?text=Sem+Imagem';
+
+    let favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
+    const index = favoritos.findIndex(fav => fav.id === id && fav.tipo === tipo);
+
+    if (index === -1) {
+        favoritos.push({ id, tipo, titulo, poster, data: new Date().toISOString().split('T')[0] });
+        botaoFavorito.textContent = 'Remover dos Favoritos';
+        botaoFavorito.classList.add('favoritado');
+    } else {
+        favoritos.splice(index, 1);
+        botaoFavorito.textContent = 'Adicionar aos Favoritos';
+        botaoFavorito.classList.remove('favoritado');
+    }
+
+    localStorage.setItem('favoritos', JSON.stringify(favoritos));
 }
 
 function voltarParaInicio() {
-    // Mostra todas as seções novamente
-    document.getElementById('secao-filmes-novidade').style.display = 'block';
-    document.getElementById('secao-filmes-desenho').style.display = 'block';
-    document.getElementById('secao-series-novidade').style.display = 'block';
-    document.getElementById('secao-series-desenho').style.display = 'block';
-    document.getElementById('secao-filmes-famosos').style.display = 'block';
-    document.getElementById('secao-series-famosas').style.display = 'block';
-    
-    // Recarrega os filmes e séries originais
+    const sections = ['secao-filmes-novidade', 'secao-filmes-desenho', 'secao-series-novidade', 'secao-series-desenho', 'secao-filmes-famosos', 'secao-series-famosas'];
+    sections.forEach(id => document.getElementById(id).style.display = 'block');
     carregaFamosos();
     carregaNovidade();
     carregaDesenho();
@@ -87,32 +108,6 @@ function voltarParaInicio() {
     carregaSeriesNovidade();
     carregaSeriesDesenho();
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    carregaFaixa();
-    carregaNovidade();
-    carregaFamosos();
-    carregaDesenho();
-    carregaSeriesFamosas();
-    carregaSeriesNovidade();
-    carregaSeriesDesenho();
-
-    // Adiciona evento de clique para os gêneros
-    document.querySelectorAll('[data-genre]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const genreFilme = link.getAttribute('data-genre');
-            const genreSerie = link.getAttribute('data-genre-serie');
-            carregaPorGenero(genreFilme, genreSerie);
-        });
-    });
-
-    // Adiciona evento de clique para o botão "Filmes & Séries"
-    document.querySelector('.voltar-inicio').addEventListener('click', (e) => {
-        e.preventDefault();
-        voltarParaInicio();
-    });
-});
 
 async function carregaFaixa() {
     const res = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR`);
@@ -128,56 +123,102 @@ async function carregaFaixa() {
 }
 
 async function carregaFamosos() {
-    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&sort_by=revenue.desc&language=pt-BR`);
-    const data = await res.json();
-    preencheFilmes('filmes-famosos', data.results);
+    const container = document.getElementById('filmes-famosos');
+    container.innerHTML = '<div class="loading">Carregando...</div>';
+    try {
+        const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&sort_by=revenue.desc&language=pt-BR`);
+        const data = await res.json();
+        preencheFilmes('filmes-famosos', data.results);
+    } catch (error) {
+        container.innerHTML = '<p>Erro ao carregar filmes famosos.</p>';
+    }
 }
 
 async function carregaNovidade() {
-    const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR&vote_count.gte=500`);
-    const data = await res.json();
-    preencheFilmes('filmes-novidade', data.results);
+    const container = document.getElementById('filmes-novidade');
+    container.innerHTML = '<div class="loading">Carregando...</div>';
+    try {
+        const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR&vote_count.gte=500`);
+        const data = await res.json();
+        preencheFilmes('filmes-novidade', data.results);
+    } catch (error) {
+        container.innerHTML = '<p>Erro ao carregar novidades.</p>';
+    }
 }
 
 async function carregaDesenho() {
-    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=16&sort_by=vote_average.desc&vote_count.gte=500`);
-    const data = await res.json();
-    preencheFilmes('filmes-desenho', data.results);
+    const container = document.getElementById('filmes-desenho');
+    container.innerHTML = '<div class="loading">Carregando...</div>';
+    try {
+        const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=16&sort_by=vote_average.desc&vote_count.gte=500`);
+        const data = await res.json();
+        preencheFilmes('filmes-desenho', data.results);
+    } catch (error) {
+        container.innerHTML = '<p>Erro ao carregar animações.</p>';
+    }
 }
 
 async function carregaSeriesFamosas() {
-    const res = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=673e3727601cd851fa4802daf03edfeb&sort_by=vote_average.desc&vote_count.gte=500`);
-    const data = await res.json();
-    preencheFilmes('series-famosas', data.results, true);
+    const container = document.getElementById('series-famosas');
+    container.innerHTML = '<div class="loading">Carregando...</div>';
+    try {
+        const res = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=673e3727601cd851fa4802daf03edfeb&sort_by=vote_average.desc&vote_count.gte=500`);
+        const data = await res.json();
+        preencheFilmes('series-famosas', data.results, true);
+    } catch (error) {
+        container.innerHTML = '<p>Erro ao carregar séries famosas.</p>';
+    }
 }
 
 async function carregaSeriesNovidade() {
-    const res = await fetch(`https://api.themoviedb.org/3/tv/on_the_air?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR`);
-    const data = await res.json();
-    preencheFilmes('series-novidade', data.results, true);
+    const container = document.getElementById('series-novidade');
+    container.innerHTML = '<div class="loading">Carregando...</div>';
+    try {
+        const res = await fetch(`https://api.themoviedb.org/3/tv/on_the_air?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR`);
+        const data = await res.json();
+        preencheFilmes('series-novidade', data.results, true);
+    } catch (error) {
+        container.innerHTML = '<p>Erro ao carregar séries novas.</p>';
+    }
 }
 
 async function carregaSeriesDesenho() {
-    const res = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=16&sort_by=vote_average.desc&vote_count.gte=100&language=pt-BR`);
-    const data = await res.json();
-    preencheFilmes('series-desenho', data.results, true);
+    const container = document.getElementById('series-desenho');
+    container.innerHTML = '<div class="loading">Carregando...</div>';
+    try {
+        const res = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=16&sort_by=vote_average.desc&vote_count.gte=100&language=pt-BR`);
+        const data = await res.json();
+        preencheFilmes('series-desenho', data.results, true);
+    } catch (error) {
+        container.innerHTML = '<p>Erro ao carregar animações em série.</p>';
+    }
 }
 
 async function carregaPorGenero(genreFilme, genreSerie) {
-    document.getElementById('secao-filmes-novidade').style.display = 'none';
-    document.getElementById('secao-filmes-desenho').style.display = 'none';
-    document.getElementById('secao-series-novidade').style.display = 'none';
-    document.getElementById('secao-series-desenho').style.display = 'none';
+    const sections = ['secao-filmes-novidade', 'secao-filmes-desenho', 'secao-series-novidade', 'secao-series-desenho'];
+    sections.forEach(id => document.getElementById(id).style.display = 'none');
     document.getElementById('secao-filmes-famosos').style.display = 'block';
     document.getElementById('secao-series-famosas').style.display = 'block';
 
-    const resFilmes = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=${genreFilme}&sort_by=popularity.desc&vote_count.gte=500`);
-    const dataFilmes = await resFilmes.json();
-    preencheFilmes('filmes-famosos', dataFilmes.results);
+    const filmesContainer = document.getElementById('filmes-famosos');
+    filmesContainer.innerHTML = '<div class="loading">Carregando...</div>';
+    try {
+        const resFilmes = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=${genreFilme}&sort_by=popularity.desc&vote_count.gte=500`);
+        const dataFilmes = await resFilmes.json();
+        preencheFilmes('filmes-famosos', dataFilmes.results);
+    } catch (error) {
+        filmesContainer.innerHTML = '<p>Erro ao carregar filmes por gênero.</p>';
+    }
 
-    const resSeries = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=${genreSerie}&sort_by=popularity.desc&vote_count.gte=500`);
-    const dataSeries = await resSeries.json();
-    preencheFilmes('series-famosas', dataSeries.results, true);
+    const seriesContainer = document.getElementById('series-famosas');
+    seriesContainer.innerHTML = '<div class="loading">Carregando...</div>';
+    try {
+        const resSeries = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=673e3727601cd851fa4802daf03edfeb&with_genres=${genreSerie}&sort_by=popularity.desc&vote_count.gte=500`);
+        const dataSeries = await resSeries.json();
+        preencheFilmes('series-famosas', dataSeries.results, true);
+    } catch (error) {
+        seriesContainer.innerHTML = '<p>Erro ao carregar séries por gênero.</p>';
+    }
 }
 
 function preencheFilmes(containerId, itens, isSerie = false) {
@@ -185,16 +226,12 @@ function preencheFilmes(containerId, itens, isSerie = false) {
     container.innerHTML = '';
     itens.forEach(item => {
         const img = document.createElement('img');
-        img.src = `https://image.tmdb.org/t/p/w200${item.poster_path}`;
+        img.src = item.poster_path ? `https://image.tmdb.org/t/p/w200${item.poster_path}` : 'https://via.placeholder.com/200x300?text=Sem+Imagem';
         img.alt = isSerie ? item.name : item.title;
         img.style.cursor = 'pointer';
         img.addEventListener('click', () => abreModal(item, isSerie));
         container.appendChild(img);
     });
-}
-
-function preencheSeries(containerId, series) {
-    preencheFilmes(containerId, series, true);
 }
 
 function procuraFilme() {
@@ -203,3 +240,27 @@ function procuraFilme() {
         window.location.href = `pesquisar.html?q=${encodeURIComponent(termo)}`;
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    carregaFaixa();
+    carregaNovidade();
+    carregaFamosos();
+    carregaDesenho();
+    carregaSeriesFamosas();
+    carregaSeriesNovidade();
+    carregaSeriesDesenho();
+
+    document.querySelectorAll('[data-genre]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const genreFilme = link.getAttribute('data-genre');
+            const genreSerie = link.getAttribute('data-genre-serie');
+            carregaPorGenero(genreFilme, genreSerie);
+        });
+    });
+
+    document.querySelector('.voltar-inicio').addEventListener('click', (e) => {
+        e.preventDefault();
+        voltarParaInicio();
+    });
+});

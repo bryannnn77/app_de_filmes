@@ -23,30 +23,23 @@ function abreModal(item) {
 
     titulo.textContent = item.title;
     descricao.textContent = item.overview || 'Sem descrição disponível';
-    
-    // Configura o botão de favoritos
+
     const favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
     const isFavorito = favoritos.some(fav => fav.id === item.id && fav.tipo === item.tipo);
     botaoFavorito.textContent = isFavorito ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos';
     botaoFavorito.dataset.id = item.id;
     botaoFavorito.dataset.tipo = item.tipo;
-    
-    if (isFavorito) {
-        botaoFavorito.classList.add('favoritado');
-    } else {
-        botaoFavorito.classList.remove('favoritado');
-    }
+    botaoFavorito.dataset.posterPath = item.poster_path || '';
+    botaoFavorito.classList.toggle('favoritado', isFavorito);
 
     async function carregaTrailer() {
         try {
             const res = await fetch(`https://api.themoviedb.org/3/${item.tipo === 'Filme' ? 'movie' : 'tv'}/${item.id}/videos?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR`);
             const data = await res.json();
             const trailer = data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-            if (trailer) {
-                trailerContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>`;
-            } else {
-                trailerContainer.innerHTML = '<p>Trailer não disponível.</p>';
-            }
+            trailerContainer.innerHTML = trailer
+                ? `<iframe src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>`
+                : '<p>Trailer não disponível.</p>';
         } catch (error) {
             trailerContainer.innerHTML = '<p>Erro ao carregar trailer.</p>';
         }
@@ -56,24 +49,16 @@ function abreModal(item) {
         try {
             const res = await fetch(`https://api.themoviedb.org/3/${item.tipo === 'Filme' ? 'movie' : 'tv'}/${item.id}?api_key=673e3727601cd851fa4802daf03edfeb&language=pt-BR`);
             const data = await res.json();
-            
             indicadoresContainer.innerHTML = '';
-            
-            // Adiciona avaliação
             const avaliacao = document.createElement('p');
             avaliacao.textContent = `⭐ ${data.vote_average?.toFixed(1) || 'N/A'}/10`;
             indicadoresContainer.appendChild(avaliacao);
-            
-            // Adiciona data de lançamento
             const dataLancamento = document.createElement('p');
-            dataLancamento.textContent = `📅 ${item.tipo === 'Filme' ? data.release_date : data.first_air_date}`;
+            dataLancamento.textContent = `📅 ${item.tipo === 'Filme' ? data.release_date : data.first_air_date || 'N/A'}`;
             indicadoresContainer.appendChild(dataLancamento);
-            
-            // Adiciona gêneros
             const generos = document.createElement('p');
             generos.textContent = `🎭 ${data.genres?.map(g => g.name).join(', ') || 'N/A'}`;
             indicadoresContainer.appendChild(generos);
-            
         } catch (error) {
             indicadoresContainer.innerHTML = '<p>Erro ao carregar informações adicionais.</p>';
         }
@@ -81,7 +66,6 @@ function abreModal(item) {
 
     carregaTrailer();
     carregaIndicadores();
-
     modal.style.display = 'flex';
 }
 
@@ -94,22 +78,29 @@ function toggleFavorito() {
     const id = botaoFavorito.dataset.id;
     const tipo = botaoFavorito.dataset.tipo;
     const titulo = document.getElementById('modal-titulo').textContent;
-    const poster = `https://image.tmdb.org/t/p/w200${document.querySelector(`.filme-caixa img[alt="${titulo}"]`).src.split('/w200')[1]}`;
+    const posterPath = botaoFavorito.dataset.posterPath || '';
+    const poster = posterPath ? `https://image.tmdb.org/t/p/w200${posterPath}` : 'https://via.placeholder.com/200x300?text=Sem+Imagem';
 
     let favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
-    const index = favoritos.findIndex(fav => fav.id === id && fav.tipo === tipo);
+    console.log('Favoritos antes:', favoritos);
+    const index = favoritos.findIndex(fav => fav.id === Number(id) && fav.tipo === tipo); 
+    console.log('Index encontrado:', index);
 
     if (index === -1) {
-        favoritos.push({ id, tipo, titulo, poster });
+        const novoFavorito = { id: Number(id), tipo, titulo, poster, data: new Date().toISOString().split('T')[0] };
+        favoritos.push(novoFavorito);
         botaoFavorito.textContent = 'Remover dos Favoritos';
         botaoFavorito.classList.add('favoritado');
+        console.log('Adicionado:', novoFavorito);
     } else {
         favoritos.splice(index, 1);
         botaoFavorito.textContent = 'Adicionar aos Favoritos';
         botaoFavorito.classList.remove('favoritado');
+        console.log('Removido:', { id, tipo });
     }
 
     localStorage.setItem('favoritos', JSON.stringify(favoritos));
+    console.log('Favoritos após:', favoritos);
 }
 
 async function buscaFilme(termo) {
@@ -150,9 +141,9 @@ async function buscaFilme(termo) {
             const div = document.createElement('div');
             div.className = 'filme-caixa';
             div.innerHTML = `
-                <img src="https://image.tmdb.org/t/p/w200${item.poster_path}" alt="${item.title}" style="cursor: pointer;">
+                <img src="${item.poster_path ? `https://image.tmdb.org/t/p/w200${item.poster_path}` : 'https://via.placeholder.com/200x300?text=Sem+Imagem'}" alt="${item.title}" style="cursor: pointer;">
                 <h3>${item.title}</h3>
-                <p>${item.tipo} • ${item.data ? item.data.substring(0, 4) : ''}</p>
+                <p>${item.tipo} • ${item.data ? item.data.substring(0, 4) : 'N/A'}</p>
             `;
             div.querySelector('img').addEventListener('click', () => abreModal(item));
             container.appendChild(div);
