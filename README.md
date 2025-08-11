@@ -4,8 +4,8 @@
 <br><br>
 ## **📌 Visão Geral**  
 O MovieList é um aplicativo onde usuários podem:    
-✔ Descobrir novidades com base em avaliações da comunidade.  
-✔ Favoritar títulos para assistir depois.  
+✔ Descobrir novidades com base em avaliações da comunidade;  
+✔ Favoritar títulos para assistir depois;  
 ✔ Navegar pelo nosso longo catálogo para escolher o melhor filme para assistir depois.
 <br><br>
 ## **✨ Recursos Funcionais**  
@@ -20,6 +20,7 @@ O MovieList é um aplicativo onde usuários podem:
 ## **🛠 Tecnologias Utilizadas**  
 - API de filmes: TMDB API
 - Front-End: HTML5, CSS3, JavaScript 
+
 
 
 
